@@ -22,7 +22,6 @@ Hierarquia:
 
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse, warn.conflicts = FALSE)
-f <- glue::glue
 `%|NA|%` <- function(lhr, rhs) ifelse(is.na(lhr), rhs, lhr)
 paginas <- pdftools::pdf_text("DOC-Avulso inicial da matéria - SF212063437642-20210916.pdf")
 cat(paginas[[5]])
@@ -210,7 +209,11 @@ tabela_final <- alineas %>%
     across(everything(), str_squish),
     across(everything(), ~ str_replace(.x, "_VAZIO_", ""))
   )
-reactable::reactable(head(tabela_final, 20), wrap = FALSE)
+
+tabela_final %>%
+  mutate(conteudo = str_trunc(conteudo, 25)) %>%
+  head(20) %>%
+  knitr::kable()
 ```
 
 ```{r}

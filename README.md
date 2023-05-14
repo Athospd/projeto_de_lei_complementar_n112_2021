@@ -372,10 +372,35 @@ tabela_final <- alineas %>%
     across(everything(), str_squish),
     across(everything(), ~ str_replace(.x, "_VAZIO_", ""))
   )
-reactable::reactable(head(tabela_final, 20), wrap = FALSE)
+
+tabela_final %>%
+  mutate(conteudo = str_trunc(conteudo, 25)) %>%
+  head(20) %>%
+  knitr::kable()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+| livro   | titulo    | secao | artigo  | paragrafo        | inciso | alinea | conteudo                |
+|:--------|:----------|:------|:--------|:-----------------|:-------|:-------|:------------------------|
+|         |           |       |         |                  |        |        | SENADO FEDERAL PROJETO… |
+| LIVRO I |           |       |         |                  |        |        | DAS NORMAS ELEITORAIS   |
+| LIVRO I | TÍTULO I  |       |         |                  |        |        | DOS PRINCÍPIOS FUNDAME… |
+| LIVRO I | TÍTULO I  |       | Art. 1º |                  |        |        | Esta Lei institui as n… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  |        |        | O direito eleitoral e … |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | I      |        | sufrágio universal, ex… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | II     |        | pluralismo político, l… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | III    |        | liberdade de expressão… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | IV     |        | liberdade de reunião e… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | V      |        | igualdade de oportunid… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | VI     |        | imparcialidade e neutr… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | VII    |        | independência, transpa… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | VIII   |        | transparência e presta… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | IX     |        | preservação da autenti… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | X      |        | in dubio pro suffragiu… |
+| LIVRO I | TÍTULO I  |       | Art. 2º |                  | XI     |        | participação política … |
+| LIVRO I | TÍTULO I  |       | Art. 3º |                  |        |        | A escolha para os carg… |
+| LIVRO I | TÍTULO I  |       | Art. 3º | Parágrafo único. |        |        | O dever de proteção da… |
+| LIVRO I | TÍTULO I  |       | Art. 4º |                  |        |        | Para o exercício de se… |
+| LIVRO I | TÍTULO II |       |         |                  |        |        | DA APLICAÇÃO DAS NORMA… |
 
 ``` r
 # writexl::write_xlsx(tabela_final, "DOC-Avulso inicial da matéria - SF212063437642-20210916.xlsx")
