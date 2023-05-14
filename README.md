@@ -8,15 +8,15 @@ PDF de um projeto de lei.
 
 Hierarquia:
 
-> livro \> título \> Capítulo \> seção \> artigo \> parágrafo \> inciso
+> livro \> título \> capítulo \> seção \> artigo \> parágrafo \> inciso
 > \> alínea
 
 #### Exemplo de texto:
 
 ``` r
 library(tidyverse, warn.conflicts = FALSE)
-f <- glue::glue
 `%|NA|%` <- function(lhr, rhs) ifelse(is.na(lhr), rhs, lhr)
+
 paginas <- pdftools::pdf_text("DOC-Avulso inicial da matéria - SF212063437642-20210916.pdf")
 cat(paginas[[5]])
 ```
@@ -376,31 +376,487 @@ tabela_final <- alineas %>%
 tabela_final %>%
   mutate(conteudo = str_trunc(conteudo, 25)) %>%
   head(20) %>%
-  knitr::kable()
+  kableExtra::kable() %>%
+  kableExtra::kable_styling(font_size = 10)
 ```
 
-| livro   | titulo    | secao | artigo  | paragrafo        | inciso | alinea | conteudo                |
-|:--------|:----------|:------|:--------|:-----------------|:-------|:-------|:------------------------|
-|         |           |       |         |                  |        |        | SENADO FEDERAL PROJETO… |
-| LIVRO I |           |       |         |                  |        |        | DAS NORMAS ELEITORAIS   |
-| LIVRO I | TÍTULO I  |       |         |                  |        |        | DOS PRINCÍPIOS FUNDAME… |
-| LIVRO I | TÍTULO I  |       | Art. 1º |                  |        |        | Esta Lei institui as n… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  |        |        | O direito eleitoral e … |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | I      |        | sufrágio universal, ex… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | II     |        | pluralismo político, l… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | III    |        | liberdade de expressão… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | IV     |        | liberdade de reunião e… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | V      |        | igualdade de oportunid… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | VI     |        | imparcialidade e neutr… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | VII    |        | independência, transpa… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | VIII   |        | transparência e presta… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | IX     |        | preservação da autenti… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | X      |        | in dubio pro suffragiu… |
-| LIVRO I | TÍTULO I  |       | Art. 2º |                  | XI     |        | participação política … |
-| LIVRO I | TÍTULO I  |       | Art. 3º |                  |        |        | A escolha para os carg… |
-| LIVRO I | TÍTULO I  |       | Art. 3º | Parágrafo único. |        |        | O dever de proteção da… |
-| LIVRO I | TÍTULO I  |       | Art. 4º |                  |        |        | Para o exercício de se… |
-| LIVRO I | TÍTULO II |       |         |                  |        |        | DA APLICAÇÃO DAS NORMA… |
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+livro
+</th>
+<th style="text-align:left;">
+titulo
+</th>
+<th style="text-align:left;">
+secao
+</th>
+<th style="text-align:left;">
+artigo
+</th>
+<th style="text-align:left;">
+paragrafo
+</th>
+<th style="text-align:left;">
+inciso
+</th>
+<th style="text-align:left;">
+alinea
+</th>
+<th style="text-align:left;">
+conteudo
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+SENADO FEDERAL PROJETO…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+DAS NORMAS ELEITORAIS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+DOS PRINCÍPIOS FUNDAME…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 1º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Esta Lei institui as n…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+O direito eleitoral e …
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+sufrágio universal, ex…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+II
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+pluralismo político, l…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+III
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+liberdade de expressão…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+IV
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+liberdade de reunião e…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+V
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+igualdade de oportunid…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+VI
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+imparcialidade e neutr…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+VII
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+independência, transpa…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+VIII
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+transparência e presta…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+IX
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+preservação da autenti…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+X
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+in dubio pro suffragiu…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 2º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+XI
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+participação política …
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 3º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+A escolha para os carg…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 3º
+</td>
+<td style="text-align:left;">
+Parágrafo único.
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+O dever de proteção da…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO I
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Art. 4º
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Para o exercício de se…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIVRO I
+</td>
+<td style="text-align:left;">
+TÍTULO II
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+DA APLICAÇÃO DAS NORMA…
+</td>
+</tr>
+</tbody>
+</table>
 
 ``` r
 # writexl::write_xlsx(tabela_final, "DOC-Avulso inicial da matéria - SF212063437642-20210916.xlsx")

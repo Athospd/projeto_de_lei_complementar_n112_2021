@@ -2,12 +2,13 @@
 title: "PDF de projeto de lei para data.frame"
 output: github_document
 date: "2023-05-13"
+always_allow_html: true
 editor_options: 
   chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 ## Sobre o texto do pdf
@@ -16,13 +17,14 @@ PDF de um projeto de lei.
 
 Hierarquia:
 
-> livro > título > Capítulo > seção > artigo > parágrafo > inciso > alínea
+> livro > título > capítulo > seção > artigo > parágrafo > inciso > alínea
 
 #### Exemplo de texto:
 
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse, warn.conflicts = FALSE)
 `%|NA|%` <- function(lhr, rhs) ifelse(is.na(lhr), rhs, lhr)
+
 paginas <- pdftools::pdf_text("DOC-Avulso inicial da matéria - SF212063437642-20210916.pdf")
 cat(paginas[[5]])
 ```
@@ -213,7 +215,8 @@ tabela_final <- alineas %>%
 tabela_final %>%
   mutate(conteudo = str_trunc(conteudo, 25)) %>%
   head(20) %>%
-  knitr::kable()
+  kableExtra::kable() %>%
+  kableExtra::kable_styling(font_size = 10)
 ```
 
 ```{r}
