@@ -1,8 +1,8 @@
 .Rproj.user
 .Rhistory
 .Rdata
-.RData
+*.RData
 .httr-oauth
 .DS_Store
-.rdb
-.rdx
+*.rdb
+*.rdx
