@@ -184,7 +184,7 @@ capitulos %>% count(capitulo)
 ## Seções
 
 ``` r
-secoes <- titulos %>%
+secoes <- capitulos %>%
   mutate( 
     conteudo = map(conteudo, function(conteudo) {
       conteudo %>% 
@@ -214,7 +214,7 @@ secoes %>% count(secao)
     ##  9 Seção VIII      1
     ## 10 Seção X         1
     ## 11 Seção Única     1
-    ## 12 _VAZIO_       115
+    ## 12 _VAZIO_       193
 
 ## Artigos
 

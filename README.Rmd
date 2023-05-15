@@ -106,7 +106,7 @@ capitulos %>% count(capitulo)
 ## Seções
 
 ```{r}
-secoes <- titulos %>%
+secoes <- capitulos %>%
   mutate( 
     conteudo = map(conteudo, function(conteudo) {
       conteudo %>% 
@@ -221,5 +221,9 @@ tabela_final %>%
 
 ```{r}
 # writexl::write_xlsx(tabela_final, "DOC-Avulso inicial da matéria - SF212063437642-20210916.xlsx")
+```
+
+```{r}
+
 ```
 
